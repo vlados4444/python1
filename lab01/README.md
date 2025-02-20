@@ -268,7 +268,7 @@ my_favorite_movies = 'Терминатор, Пятый элемент, Ават�
   ```bash
   git push --tags
   ```
-##СПИСОК ЛИТЕРАТУРЫ
+## СПИСОК ЛИТЕРАТУРЫ
 1. [Matplotlib cheatsheets and handouts](https://matplotlib.org/cheatsheets/)
 2. [Markdown Cheat Sheet](https://www.markdownguide.org/cheat-sheet/)
 3. [Writing mathematical expressions](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions)
