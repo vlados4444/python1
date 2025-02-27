@@ -35,4 +35,4 @@
 Повторяем, пока не найдём 5 чисел.
 # Ссылки используемых источников
 
-https://docs.python.org/3/library/itertools.html
+[itertools](https://docs.python.org/3/library/itertools.html)
