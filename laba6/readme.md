@@ -9,6 +9,9 @@
 Расчёт процентов, графика платежей.
 
 Фреймворк PySimpleGUI
+
+Код по bank services
+
 ~~~python
 import PySimpleGUI as sg
 from bank_services import calculate_credit, calculate_deposit, calculate_installment
@@ -65,6 +68,65 @@ while True:
         sg.popup("Отчет сохранен в формате Excel!")
 
 window.close()
+~~~
+Когда пользователь нажимает на кнопку "Сохранить в DOCX" или "Сохранить в Excel", программа вызывает соответствующую функцию для создания отчетов.
+После создания отчетов появляется всплывающее окно (с помощью sg.popup()), которое уведомляет пользователя о том, что отчет был успешно сохранен.
+
+
+Код по doc report
+```python
+from docx import Document
+
+def create_doc_report(credit_result, deposit_result, file_name="report.docx"):
+    doc = Document()
+    doc.add_heading("Отчет по банковским услугам", 0)
+    
+    doc.add_heading("Кредит", level=1)
+    doc.add_paragraph(f"Ежемесячный платеж: {credit_result[0]:.2f} руб.")
+    doc.add_paragraph(f"Общая сумма выплат: {credit_result[1]:.2f} руб.")
+    
+    doc.add_heading("Вклад", level=1)
+    doc.add_paragraph(f"Общая сумма на счете: {deposit_result[0]:.2f} руб.")
+    doc.add_paragraph(f"Начисленные проценты: {deposit_result[1]:.2f} руб.")
+    
+    doc.save(file_name)
 ```
+Мы создаем новый объект документа с помощью Document().
+Добавляем заголовок с помощью add_heading().
+Используем метод add_paragraph() для добавления текста с расчетами для кредита и вклада в отчет.
+В конце файл сохраняется с именем bank_report.docx на диск с помощью метода save().
+
+Код по excel report 
+```python
+import openpyxl
+
+def create_excel_report(credit_result, deposit_result, file_name="report.xlsx"):
+    wb = openpyxl.Workbook()
+    sheet = wb.active
+    sheet.title = "Отчет"
+
+    sheet["A1"] = "Кредит"
+    sheet["A2"] = "Ежемесячный платеж"
+    sheet["B2"] = f"{credit_result[0]:.2f} руб."
+    sheet["A3"] = "Общая сумма выплат"
+    sheet["B3"] = f"{credit_result[1]:.2f} руб."
+
+    sheet["A5"] = "Вклад"
+    sheet["A6"] = "Общая сумма на счете"
+    sheet["B6"] = f"{deposit_result[0]:.2f} руб."
+    sheet["A7"] = "Начисленные проценты"
+    sheet["B7"] = f"{deposit_result[1]:.2f} руб."
+
+    wb.save(file_name)
+```
+Создаем новый Excel файл с помощью openpyxl.Workbook().
+Получаем активный лист с помощью wb.active.
+Вставляем заголовки и расчеты для кредита и вклада в ячейки с помощью простого обращения к ячейкам по индексам (например, sheet['A1']).
+После того как данные добавлены, файл сохраняется с именем bank_report.xlsx с помощью метода wb.save().
 
 ![Alt text](Screenshot_20250403_125715.png)
+
+# Список литературы
+[Python модули и пакеты](https://habr.com/ru/articles/718828/)
+
+[PySimpleGUI](https://www.pysimplegui.com/)
