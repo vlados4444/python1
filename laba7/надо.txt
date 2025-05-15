@@ -1,0 +1,53 @@
+Метод calculate() помечен как @abstractmethod, что заставляет подклассы реализовать его
+
+
+
+Credit(BankService) — в credit.py
+
+Installment(BankService) — в installment.py
+
+Deposit(BankService) — в deposit.py
+
+Каждый из них реализует собственную версию метода calculate().
+class Credit(BankService):
+    def calculate(self):
+        ...
+
+
+Требование: использовать @property для управляемых атрибутов
+
+В credit.py:
+@property
+def monthly_payment(self):
+    return self._monthly_payment
+В deposit.py:
+@property
+def future_value(self):
+    return self._future_value
+➡ Это managed-атрибуты: внутри — приватное значение (_monthly_payment), снаружи — аккуратный доступ.
+
+Требование: каждый класс должен иметь минимум два __dunder__ метода (магических)
+
+В credit.py:
+def __str__(self):
+    return f"Кредит: {self.term} мес. x {self.monthly_payment} руб."
+
+def __repr__(self):
+    return f"<Credit total={self.total_payment}>"
+Такие же есть в:
+
+installment.py (__str__, __repr__)
+
+deposit.py (__str__, __repr__)
+
+
+
+__str__ — позволяет возвращать строковое представление объекта, которое будет полезно для отображения в интерфейсе и логах.
+
+__repr__ — возвращает официальное строковое представление объекта, которое полезно для отладки.
+
+
+
+
+pip install python-docx openpyxl
+
